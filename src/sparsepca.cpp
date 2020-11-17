@@ -14,15 +14,6 @@
 // via the exports attribute we tell Rcpp to make this function
 // available from R
 //
-// [[Rcpp::export]]
-double normArmaM(const arma::mat& X, int p = 2){
-    return(arma::norm(X, p));
-}
-
-// [[Rcpp::export]]
-double normArmaV(const arma::colvec& Y, int p = 2){
-    return(arma::norm(Y, p));
-}
 
 // [[Rcpp::export]]
 arma::mat procrustes(arma::mat& X, arma::mat &V){
