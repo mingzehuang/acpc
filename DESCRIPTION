@@ -11,5 +11,6 @@ Imports: Rcpp (>= 1.0.5)
 LinkingTo: Rcpp, RcppArmadillo
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
