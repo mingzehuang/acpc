@@ -1,3 +1,3 @@
 #' @importFrom Rcpp evalCpp
-#' @useDynLib GroupHW, .registration = TRUE
+#' @useDynLib acpc, .registration = TRUE
 NULL
