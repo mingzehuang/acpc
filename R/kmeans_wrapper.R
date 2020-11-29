@@ -1,3 +1,21 @@
+#' Title
+#'
+#' @param X Data matrix with dimensions n by p
+#' @param K Number of clusters  with K less than or equal to n (optional)
+#' @param M Matrix of initial cluster centers with dimensions K by p (optional)
+#' @param numIter Number of iterations of algorithm (default = 100)
+#'
+#' @return Returns vector Y of length n, which assigns each data point into a cluster
+#' @export
+#'
+#' @examples
+#' # Example on 2D-plane
+#' # Generate features.
+#' X = rbind(matrix(rnorm(200, sd = 1), ncol = 2), matrix(rnorm(200, mean = 6, sd = 1), ncol = 2))
+#' colnames(X) = c("x", "y")
+#' # Cluster observations into 2 groups.
+#' clusters = MyKmeans(X, 2)
+#' plot(X, col = clusters)
 MyKmeans <- function(X, K, M = NULL, numIter = 100){
   
   # Check whether M is NULL or not. If NULL, initialize based on K random points from X. If not NULL, check for compatibility with X dimensions.

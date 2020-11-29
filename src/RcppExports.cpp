@@ -6,55 +6,81 @@
 
 using namespace Rcpp;
 
-// rcpparma_hello_world
-arma::mat rcpparma_hello_world();
-RcppExport SEXP _acpc_rcpparma_hello_world() {
+// LRMultiClass_submission
+Rcpp::List LRMultiClass_submission(const arma::mat& X, const arma::uvec& y, const arma::mat& beta_init, int numIter, double eta, double lambda);
+RcppExport SEXP _acpc_LRMultiClass_submission(SEXP XSEXP, SEXP ySEXP, SEXP beta_initSEXP, SEXP numIterSEXP, SEXP etaSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpparma_hello_world());
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type beta_init(beta_initSEXP);
+    Rcpp::traits::input_parameter< int >::type numIter(numIterSEXP);
+    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(LRMultiClass_submission(X, y, beta_init, numIter, eta, lambda));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_outerproduct
-arma::mat rcpparma_outerproduct(const arma::colvec& x);
-RcppExport SEXP _acpc_rcpparma_outerproduct(SEXP xSEXP) {
+// MyKmeans_c
+arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter);
+RcppExport SEXP _acpc_MyKmeans_c(SEXP XSEXP, SEXP KSEXP, SEXP MSEXP, SEXP numIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_outerproduct(x));
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type K(KSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type M(MSEXP);
+    Rcpp::traits::input_parameter< int >::type numIter(numIterSEXP);
+    rcpp_result_gen = Rcpp::wrap(MyKmeans_c(X, K, M, numIter));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_innerproduct
-double rcpparma_innerproduct(const arma::colvec& x);
-RcppExport SEXP _acpc_rcpparma_innerproduct(SEXP xSEXP) {
+// procrustes
+arma::mat procrustes(arma::mat& X, arma::mat& V);
+RcppExport SEXP _acpc_procrustes(SEXP XSEXP, SEXP VSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_innerproduct(x));
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type V(VSEXP);
+    rcpp_result_gen = Rcpp::wrap(procrustes(X, V));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpparma_bothproducts
-Rcpp::List rcpparma_bothproducts(const arma::colvec& x);
-RcppExport SEXP _acpc_rcpparma_bothproducts(SEXP xSEXP) {
+// soft_I
+double soft_I(double a, double lambda);
+RcppExport SEXP _acpc_soft_I(SEXP aSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_bothproducts(x));
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(soft_I(a, lambda));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sparsePCA
+Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps);
+RcppExport SEXP _acpc_sparsePCA(SEXP XSEXP, SEXP VstartSEXP, SEXP lambdaSEXP, SEXP epsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type Vstart(VstartSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    rcpp_result_gen = Rcpp::wrap(sparsePCA(X, Vstart, lambda, eps));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_acpc_rcpparma_hello_world", (DL_FUNC) &_acpc_rcpparma_hello_world, 0},
-    {"_acpc_rcpparma_outerproduct", (DL_FUNC) &_acpc_rcpparma_outerproduct, 1},
-    {"_acpc_rcpparma_innerproduct", (DL_FUNC) &_acpc_rcpparma_innerproduct, 1},
-    {"_acpc_rcpparma_bothproducts", (DL_FUNC) &_acpc_rcpparma_bothproducts, 1},
+    {"_acpc_LRMultiClass_submission", (DL_FUNC) &_acpc_LRMultiClass_submission, 6},
+    {"_acpc_MyKmeans_c", (DL_FUNC) &_acpc_MyKmeans_c, 4},
+    {"_acpc_procrustes", (DL_FUNC) &_acpc_procrustes, 2},
+    {"_acpc_soft_I", (DL_FUNC) &_acpc_soft_I, 2},
+    {"_acpc_sparsePCA", (DL_FUNC) &_acpc_sparsePCA, 4},
     {NULL, NULL, 0}
 };
 
