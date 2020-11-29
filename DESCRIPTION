@@ -7,6 +7,7 @@ Author: person("Mingze", "Huang", email = "sharkmanhmz@tamu.edu", role = c("aut"
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: Area classification based on survey data.
 License: GPL-3
+Encoding: UTF-8
 Imports: Rcpp (>= 1.0.5)
 LinkingTo: Rcpp, RcppArmadillo
 Suggests: 
@@ -15,3 +16,5 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1.9000
+
+
