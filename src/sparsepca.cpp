@@ -41,7 +41,7 @@ double soft_I(double a, double lambda){
 
 //Sparse PCA problem algorithm
 // [[Rcpp::export]]
-Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps = 0.0001){
+arma::mat sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps = 0.0001){
     
     // initialize U
     int r = Vstart.n_cols;
@@ -85,5 +85,5 @@ Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps 
         
         fold = fnew;
     }
-    return Rcpp::List::create(Rcpp::Named("U") = U, Rcpp::Named("V") = V, Rcpp::Named("error") = error);
+    return (X * V);
 }
