@@ -16,8 +16,8 @@
 #' # Cluster observations into 2 groups.
 #' clusters = MyKmeans(X, 2)
 #' plot(X, col = clusters)
-MyKmeans <- function(X, K, M = NULL, Vstart, lambda_spca, eps = 0.0001, numIter = 100){
-  Xv = sparsePCA(X, Vstart, lambda_spca, eps = 0.0001)
+MyKmeans <- function(X, K, r, M = NULL, lambda_spca, eps = 0.0001, numIter = 100){
+  Xv = sparsePCA(X, r_spca, lambda_spca, eps = 0.0001)
   # Check whether M is NULL or not. If NULL, initialize based on K random points from X. If not NULL, check for compatibility with X dimensions.
   # Warning error if maximal iteration less than 1.
   if(numIter < 1) {

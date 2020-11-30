@@ -41,11 +41,10 @@ double soft_I(double a, double lambda){
 
 //Sparse PCA problem algorithm
 // [[Rcpp::export]]
-arma::mat sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps = 0.0001){
-    
+arma::mat sparsePCA(arma::mat& X, int r, double lambda, double eps){
     // initialize U
-    int r = Vstart.n_cols;
-    int p = Vstart.n_rows;
+    int p = X.n_rows;
+    arma::mat Vstart(p, r, arma::fill::zeros);
     arma::vec s;
     arma::mat Q, R;
     arma::mat U;

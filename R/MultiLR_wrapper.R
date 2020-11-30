@@ -1,5 +1,5 @@
-LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, Vstart, lambda_spca, eps = 0.0001){
-  Xv = sparsePCA(X, Vstart, lambda_spca, eps = 0.0001)
+LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, lambda_spca, eps = 0.0001){
+  Xv = sparsePCA(X, r, lambda_spca, eps)
   Xv = as.matrix(Xv)  # Convert X into matrix.
   y = as.vector(y)  # Convert y into vector.
   numIter = as.numeric(numIter)  # Convert numIter into number.
