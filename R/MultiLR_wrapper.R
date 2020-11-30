@@ -1,4 +1,4 @@
-LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, Vstart, lambda_spca, eps = 0.0001, beta_init = NULL){
+LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, Vstart, lambda_spca, eps = 0.0001){
   Xv = sparsePCA(X, Vstart, lambda_spca, eps = 0.0001)
   Xv = as.matrix(Xv)  # Convert X into matrix.
   y = as.vector(y)  # Convert y into vector.
@@ -29,18 +29,7 @@ LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, Vstart, lamb
     stop(paste("lambda should be non-negative, whereas lambda =", lambda, "is less than 0."))
   } 
   # Check whether beta_init is NULL. If NULL, initialize beta with p x K matrix of zeroes. If not NULL, check for compatibility of dimensions with what has been already supplied.
-  if (missing(beta_init) | is.null(beta_init)) {
     beta_init = matrix(0, p, K)
-  } else {
-    beta_init = as.matrix(beta_init)
-    pbeta_init = nrow(beta_init)
-    Kbeta_init = ncol(beta_init)
-    if (pbeta_init != p) {
-      stop(paste("beta_init has", pbeta_init, "rows but training data has", p, "columns (including intercepts)."))
-    } else if (Kbeta_init != K) {
-      stop(paste("beta_init has", Kbeta_init, "columns but training data has", K, "classes."))
-    }
-  }
   
   # Call C++ LRMultiClass_c function to implement the algorithm
   out = LRMultiClass_c(Xv, y, beta_init, numIter, eta, lambda)
