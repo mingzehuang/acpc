@@ -9,17 +9,6 @@ arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numI
   int p = X.n_cols;
   int KM = M.n_rows;
   int pM = M.n_cols;
-  if (numIter < 1) {
-    throw std::runtime_error("Maximal number of iterations should be at least 1, whereas " + std::to_string(numIter) + "smaller than 1.");
-  } else if (K > n) {
-    throw std::runtime_error("Number of clusters K should not exceed number of data points n, whereas K = " + std::to_string(K) + "greater than rows of X =" + std::to_string(n));
-  } else if (K < 1) {
-    throw std::runtime_error("Number of clusters K should be at least 1, whereas K = " + std::to_string(K) + "smaller than 1.");
-  } else if (KM != K) {
-    throw std::runtime_error("Number of Cluster centers should be equal to number of clusters K, whereas M contains" + std::to_string(KM) + "rows, not equal to K =" + std::to_string(K));
-  } else if (pM != p) {
-    throw std::runtime_error("Dimensions of centers M should be equal to dimensions of data points X, whereas M contains" + std::to_string(pM) + "columns and X contains" + std::to_string(p) + "columns.");
-  };
   arma::mat center_t(p, K);
   arma::mat center_new_t = M.t();
   arma::mat distance(n, K);
