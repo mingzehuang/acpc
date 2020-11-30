@@ -1,19 +1,19 @@
-LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, beta_init = NULL){
-  
-  X = as.matrix(X)  # Convert X into matrix.
+LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, Vstart, lambda_spca, eps = 0.0001, beta_init = NULL){
+  Xv = sparsePCA(X, Vstart, lambda_spca, eps = 0.0001)
+  Xv = as.matrix(Xv)  # Convert X into matrix.
   y = as.vector(y)  # Convert y into vector.
   numIter = as.numeric(numIter)  # Convert numIter into number.
   eta = as.numeric(eta)  # Convert eta into number.
   lambda = as.numeric(lambda)  # Convert lambda into number.
-  n = nrow(X)  # Calculate rows of X as n.
-  p = ncol(X)  # Calculate columns of X as p.
+  n = nrow(Xv)  # Calculate rows of X as n.
+  p = ncol(Xv)  # Calculate columns of X as p.
   ny = length(y)  # Calculate length of y as ny.
   class_y = sort(unique(y)) # Find unique values in y as classes.
   K = length(class_y)  # Calculate classes in training data as K.
   
   # Compatibility checks from HW3 and initialization of beta_init
   # Check that the first column of X and Xt are 1s, if not - display appropriate message and stop execution.
-  if (!(identical(X[ , 1], rep(1, n)))) {
+  if (!(identical(Xv[ , 1], rep(1, n)))) {
     stop("The first column of X should be 1s to include intercepts.")
   } 
   # Check for compatibility of dimensions between X and Y
@@ -43,7 +43,7 @@ LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, beta_init = 
   }
   
   # Call C++ LRMultiClass_c function to implement the algorithm
-  out = LRMultiClass_c(X, y, beta_init, numIter, eta, lambda)
+  out = LRMultiClass_c(Xv, y, beta_init, numIter, eta, lambda)
   
   # Return the class assignments
   return(out)
