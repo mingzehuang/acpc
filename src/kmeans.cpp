@@ -4,6 +4,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter) {
+  arma:mat Xv = sparsePCA(X, Vstart, lambda, eps)
   int n = X.n_rows;
   int p = X.n_cols;
   int KM = M.n_rows;
