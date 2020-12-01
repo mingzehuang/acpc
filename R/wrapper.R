@@ -15,22 +15,28 @@ acpc <- function(X_ext, X = NULL, Y = NULL, K, r_spca, lambda_spca, eta = 0.1, l
     normalX_ext = normalize(X_ext) # Center and scale X_ext.  
     X_ext = normalX_ext$Xtilde # Center and scale X_ext.
     p_ext = normalX_ext$p # Compute column of X_ext.
-    U_ext = sparsePCA(X_ext, r_spca, lambda_spca, eps)$U # Sparse PCA for X_ext.
+    spca_ext = sparsePCA(X_ext, r_spca, lambda_spca, eps) # Sparse PCA for X_ext.
+    U_ext = spca_ext$U
+    V = spca_ext$V
     M = U_ext[sample(nrow(U), K), , drop = F] # Sample initial centers.
     Y_ext = MyKmeans_c(U_ext, K, M, numIter) 
   } else {
     n = nrow(X) # Compute rows of X.
     p = ncol(X) # Compute columns of X.
-    X_ext = rbind(X_ext, X) # Stack X and X_ext together to extract common principle components.
-    normalX_ext = normalize(X_ext) # Center and scale X_ext.  
-    X_ext = normalX_ext$Xtilde # Center and scale X_ext.
-    n_ext = normalX_ext$n # Compute rows of X_ext.
-    p_ext = normalX_ext$p # Compute column of X_ext.
-    U_ext = sparsePCA(X_ext, r_spca, lambda_spca, eps)$U # Sparse PCA for X_ext.
+    X_all = rbind(X_ext, X) # Stack X and X_ext together to extract common principle components.
+    normalX_all = normalize(X_all) # Center and scale X_ext.  
+    X_all = normalX_all$Xtilde # Center and scale X_ext.
+    n_all = normalX_all$n # Compute rows of X_ext.
+    p_all = normalX_all$p # Compute column of X_ext.
+    spca_all = sparsePCA(X_all, r_spca, lambda_spca, eps) # Sparse PCA for X_all.
+    U_all = spca_all$U
+    V = spca_all$V
+    U_ext = U_all[1:(n_all - n), , drop = F]
+    U = U_all[(n_all - n + 1):n_ext, , drop = F]
     Y = as.vector(Y)  # Convert Y into vector.
     n_Y = length(Y) # Compute numbers of elements of Y.
-    Y_ext = LRMultiClass_c(U_ext[1:(n_ext - n), , drop = F], U_ext[(n_ext - n + 1):n_ext, , drop = F], Y, numIter, eta, lambda)
+    Y_ext = LRMultiClass_c(U_ext, U, Y, numIter, eta, lambda)
   }
   # Return the class assignments
-  return(Y)
+  return(list(Y_ext = Y_ext, U_ext = U_ext, V))
 }
