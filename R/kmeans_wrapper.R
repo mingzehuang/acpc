@@ -18,25 +18,16 @@
 #' plot(X, col = clusters)
 MyKmeans <- function(X, K, r, lambda_spca, eps = 0.0001, numIter = 100){
   Xv = sparsePCA(X, r_spca, lambda_spca, eps = 0.0001)
-  # Check whether M is NULL or not. If NULL, initialize based on K random points from X. If not NULL, check for compatibility with X dimensions.
   # Warning error if maximal iteration less than 1.
   if(numIter < 1) {
     stop(paste("Maximal number of iterations: ", numIter, "< 1"))  
-  }
-  
+  } else if(K < 1) {
   # Warning if number of clusters is less than 1
-  if(K < 1) {
     stop(paste("Number of clusters: ", numIter, "< 1"))
-  }
-  
+  } else if (K > nrow(Xv)) {
   # Check whether number of clusters K exceed number of data points n.
-  if (K > nrow(Xv)) {
     stop(paste("Number of clusters K should not exceed number of data points n: K = ", K, "> X =", nrow(X)))
   } 
-  
-  # Check if M is initialized
-  # If initialized, then check that the dimension of centers in M match dimensions of points in X 
-  # If initialized, also check that number of cluster centers in M matches the number of clusters K
     M = Xv[sample(nrow(Xv), K), , drop = F]
   
   # Call C++ MyKmeans_c function to implement the algorithm
