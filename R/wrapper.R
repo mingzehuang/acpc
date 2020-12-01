@@ -10,6 +10,23 @@ normalize <- function(X) {
   return (list(Xtilde = Xtilde, n = n, p = p))
 }
 
+#' Title
+#'
+#' @param X_ext 
+#' @param X 
+#' @param Y 
+#' @param K 
+#' @param r_spca 
+#' @param lambda_spca 
+#' @param eta 
+#' @param lambda_mlr 
+#' @param eps 
+#' @param numIter 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 acpc <- function(X_ext, X = NULL, Y = NULL, K = NULL, r_spca, lambda_spca = 0, eta = 0.1, lambda_mlr = 1, eps = 0.0001, numIter = 100){
   if (missing(X) | is.null(X) | missing(Y) | is.null) {
     normalX_ext = normalize(X_ext) # Center and scale X_ext.  
