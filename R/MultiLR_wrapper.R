@@ -27,8 +27,6 @@ LRMultiClass <- function(X, y = NULL, numIter = 50, eta = 0.1, lambda = 1, lambd
   if (lambda < 0) {
     stop(paste("lambda should be non-negative, whereas lambda =", lambda, "is less than 0."))
   } 
-  # Check whether beta_init is NULL. If NULL, initialize beta with p x K matrix of zeroes. If not NULL, check for compatibility of dimensions with what has been already supplied.
-    beta_init = matrix(0, p, K)
   
   # Call C++ LRMultiClass_c function to implement the algorithm
   out = LRMultiClass_c(U_ext, U, y, numIter, eta, lambda)
