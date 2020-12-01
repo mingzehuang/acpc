@@ -16,7 +16,7 @@
 #' # Cluster observations into 2 groups.
 #' clusters = MyKmeans(X, 2)
 #' plot(X, col = clusters)
-MyKmeans <- function(X, K, r, M = NULL, lambda_spca, eps = 0.0001, numIter = 100){
+MyKmeans <- function(X, K, r, lambda_spca, eps = 0.0001, numIter = 100){
   Xv = sparsePCA(X, r_spca, lambda_spca, eps = 0.0001)
   # Check whether M is NULL or not. If NULL, initialize based on K random points from X. If not NULL, check for compatibility with X dimensions.
   # Warning error if maximal iteration less than 1.
@@ -37,13 +37,7 @@ MyKmeans <- function(X, K, r, M = NULL, lambda_spca, eps = 0.0001, numIter = 100
   # Check if M is initialized
   # If initialized, then check that the dimension of centers in M match dimensions of points in X 
   # If initialized, also check that number of cluster centers in M matches the number of clusters K
-  if(missing(M) | is.null(M)) {    
     M = Xv[sample(nrow(Xv), K), , drop = F]
-  } else if (ncol(M) != ncol(Xv)) {
-    stop(paste("Dimensions of centers M should be equal to dimensions of data points X: ncol(M) = ", ncol(M), " != ", ncol(X), "= ncol(X)"))
-  } else if (nrow(M) != K) {
-    stop(paste("Number of cluster centers should be equal to number of clusters K: nrow(M) = ", nrow(M), "!=", K, " = K"))
-  }
   
   # Call C++ MyKmeans_c function to implement the algorithm
   Y = as.vector(MyKmeans_c(Xv, K, M, numIter))
