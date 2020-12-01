@@ -1,4 +1,4 @@
-LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, lambda_spca, eps = 0.0001){
+LRMultiClass <- function(X, y = NULL, numIter = 50, eta = 0.1, lambda = 1, lambda_spca, eps = 0.0001){
   U = sparsePCA(X, r, lambda_spca, eps)$U
   y = as.vector(y)  # Convert y into vector.
   numIter = as.numeric(numIter)  # Convert numIter into number.
@@ -31,7 +31,7 @@ LRMultiClass <- function(X, y, numIter = 50, eta = 0.1, lambda = 1, lambda_spca,
     beta_init = matrix(0, p, K)
   
   # Call C++ LRMultiClass_c function to implement the algorithm
-  out = LRMultiClass_c(U, y, beta_init, numIter, eta, lambda)
+  out = LRMultiClass_c(U_ext, U, y, numIter, eta, lambda)
   
   # Return the class assignments
   return(out)
