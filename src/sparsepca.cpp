@@ -84,5 +84,5 @@ arma::mat sparsePCA(arma::mat& X, int r, double lambda, double eps){
         
         fold = fnew;
     }
-    return (X * V);
+    return Rcpp::List::create(Rcpp::Named("U") = U, Rcpp::Named("V") = V);
 }

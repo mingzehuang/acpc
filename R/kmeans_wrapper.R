@@ -17,21 +17,21 @@
 #' clusters = MyKmeans(X, 2)
 #' plot(X, col = clusters)
 MyKmeans <- function(X, K, r, lambda_spca, eps = 0.0001, numIter = 100){
-  Xv = sparsePCA(X, r_spca, lambda_spca, eps = 0.0001)
+  U = sparsePCA(X, r_spca, lambda_spca, eps)$U
   # Warning error if maximal iteration less than 1.
   if(numIter < 1) {
     stop(paste("Maximal number of iterations: ", numIter, "< 1"))  
   } else if(K < 1) {
   # Warning if number of clusters is less than 1
     stop(paste("Number of clusters: ", numIter, "< 1"))
-  } else if (K > nrow(Xv)) {
+  } else if (K > nrow(U)) {
   # Check whether number of clusters K exceed number of data points n.
     stop(paste("Number of clusters K should not exceed number of data points n: K = ", K, "> X =", nrow(X)))
   } 
-    M = Xv[sample(nrow(Xv), K), , drop = F]
+    M = U[sample(nrow(U), K), , drop = F]
   
   # Call C++ MyKmeans_c function to implement the algorithm
-  Y = as.vector(MyKmeans_c(Xv, K, M, numIter))
+  Y = as.vector(MyKmeans_c(U, K, M, numIter))
   
   # Return the class assignments
   return(Y)
