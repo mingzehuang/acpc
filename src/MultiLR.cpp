@@ -37,7 +37,7 @@ Rcpp::List LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma
   int p = X.n_cols;
   int n = X.n_rows;
   // Initialize anything else that you may need
-  arma::mat beta = arma::mat(0, p, K); // to store betas and be able to change them if needed
+  arma::mat beta(p, K, arma::fill::zeros); // to store betas and be able to change them if needed
   arma::vec objective(numIter + 1); // to store objective values
   arma::mat indmat = encode(y, n, K); // encode y using one-hot encoding method
   arma::uvec ind_c = arma::find(indmat == 0);  // get index for other elements
