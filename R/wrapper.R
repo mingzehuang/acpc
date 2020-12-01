@@ -10,7 +10,7 @@ normalize <- function(X) {
   return (list(Xtilde = Xtilde, n = n, p = p))
 }
 
-acpc <- function(X_ext, X = NULL, Y = NULL, K, r_spca, lambda_spca, eta = 0.1, lambda_mlr = 1, eps = 0.0001, numIter = 100){
+acpc <- function(X_ext, X = NULL, Y = NULL, K = NULL, r_spca, lambda_spca = 0, eta = 0.1, lambda_mlr = 1, eps = 0.0001, numIter = 100){
   if (missing(X) | is.null(X) | missing(Y) | is.null) {
     normalX_ext = normalize(X_ext) # Center and scale X_ext.  
     X_ext = normalX_ext$Xtilde # Center and scale X_ext.
