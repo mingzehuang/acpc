@@ -33,7 +33,7 @@ acpc <- function(X, Y = NULL, K = NULL, r, lambda = 0, W = NULL, eps = 0.0001, n
   U = spca$U
   V = spca$V
   M = U[sample(nrow(U), K), , drop = F] # Sample initial centers.
-  out = MyKmeans_c(U, K, M, numIter)
+  out = MyKmeans_c(U, K, M, W, numIter)
   Y = out$Y
   center = out$center
   # Return the class assignments
