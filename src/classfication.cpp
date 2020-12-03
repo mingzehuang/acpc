@@ -3,10 +3,11 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter) {
+Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, const arma::colvec& W, int numIter) {
   int n = X.n_rows;
   int p = X.n_cols;
   arma::mat center_t(p, K);
+  arma::mat sqcenter_t(p, K);
   arma::mat center_new_t = M.t();
   arma::mat distance(n, K);
   arma::ucolvec Y(n);
@@ -17,8 +18,9 @@ Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter
   do {
     center_t = center_new_t;
     Y_index.zeros();
-    distance = 2 * X * center_t;
-    distance.each_row() -= arma::sum(arma::square(center_t), 0);
+    distance = 2 * X * (center_t.each_col() % W);
+    sqcenter_t = arma::square(center_t);
+    distance.each_row() -= arma::sum((sqcenter_t.each_col() % W), 0);
     Y = arma::index_max(distance, 1);
     Y_index(arma::sub2ind(arma::size(Y_index), (arma::join_rows(Y_r, Y)).t())).ones();
     center_new_t = X_t * Y_index;

@@ -17,10 +17,13 @@ normalize <- function(X) {
 #' @export
 #'
 #' @examples
-acpc <- function(X, Y = NULL, K = NULL, r, lambda = 0, eps = 0.0001, numIter = 100){
+acpc <- function(X, Y = NULL, K = NULL, r, lambda = 0, W = NULL, eps = 0.0001, numIter = 100){
   X = as.matrix(X) # Convert X into matrix.
   n = nrow(X) # Compute rows of X.
   p = ncol(X) # Compute columns of X.
+  if (missing(W) | is.null(W)) {
+    W = rep(1/p, p)
+  }
   # Center and scale X
   Xmeans = colMeans(X)  # X^bar
   X_centered = X - matrix(Xmeans, n, p, byrow = T)  # X centered.
