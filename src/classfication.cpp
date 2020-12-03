@@ -29,17 +29,3 @@ arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numI
   } while((i < numIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));;
   return Y;
 }
-
-// y - input vector of classes
-// n - length of y
-// K - number of classes in y
-// [[Rcpp::export]]
-arma::mat encode(const arma::uvec& y, const int& n, const int& K) {
-  
-  arma::mat indmat(n, K, arma::fill::zeros); //set matrix for one-hot encoding
-  arma::ucolvec Y_r = arma::regspace< arma::ucolvec >(0, n - 1); // Set linear numbers to convert label into subscription.
-  indmat(arma::sub2ind(arma::size(indmat), (arma::join_rows(Y_r, y)).t())).ones(); //Combine linear numbers with labels, set the selected element to 1.
-  
-  // output one-hot-encoded y in the form of matrix
-  return indmat;
-}
