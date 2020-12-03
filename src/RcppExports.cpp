@@ -6,24 +6,8 @@
 
 using namespace Rcpp;
 
-// LRMultiClass_c
-arma::colvec LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma::uvec& y, int numIter, double eta, double lambda);
-RcppExport SEXP _acpc_LRMultiClass_c(SEXP X_extSEXP, SEXP XSEXP, SEXP ySEXP, SEXP numIterSEXP, SEXP etaSEXP, SEXP lambdaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type X_ext(X_extSEXP);
-    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< const arma::uvec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< int >::type numIter(numIterSEXP);
-    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
-    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(LRMultiClass_c(X_ext, X, y, numIter, eta, lambda));
-    return rcpp_result_gen;
-END_RCPP
-}
 // MyKmeans_c
-arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter);
+Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter);
 RcppExport SEXP _acpc_MyKmeans_c(SEXP XSEXP, SEXP KSEXP, SEXP MSEXP, SEXP numIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -76,7 +60,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_acpc_LRMultiClass_c", (DL_FUNC) &_acpc_LRMultiClass_c, 6},
     {"_acpc_MyKmeans_c", (DL_FUNC) &_acpc_MyKmeans_c, 4},
     {"_acpc_procrustes", (DL_FUNC) &_acpc_procrustes, 2},
     {"_acpc_soft_I", (DL_FUNC) &_acpc_soft_I, 2},
