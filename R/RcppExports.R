@@ -17,7 +17,7 @@ soft_I <- function(a, lambda) {
     .Call(`_acpc_soft_I`, a, lambda)
 }
 
-sparsePCA <- function(X, r, lambda, eps) {
-    .Call(`_acpc_sparsePCA`, X, r, lambda, eps)
+sparsePCA <- function(X, Vstart, lambda, eps = 0.0001) {
+    .Call(`_acpc_sparsePCA`, X, Vstart, lambda, eps)
 }
 

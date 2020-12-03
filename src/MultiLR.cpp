@@ -29,7 +29,7 @@ arma::mat encode(const arma::uvec& y, const int& n, const int& K) {
 // lambda - ridge parameter, default 1
 // beta_init - p x K matrix of starting beta values (always supplied in right format)
 // [[Rcpp::export]]
-Rcpp::List LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma::uvec& y, int numIter, double eta = 0.1, double lambda = 1){
+arma::colvec LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma::uvec& y, int numIter, double eta = 0.1, double lambda = .01){
   // All input is assumed to be correct
   
   // Initialize some parameters
@@ -73,7 +73,7 @@ Rcpp::List LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma
     pick_prob_beta(ind_c).zeros();
     objective(t + 1) = - sum(log(sum(pick_prob_beta, 1))) + (lambda / 2) * arma::accu(arma::square(beta));
   }
-    arma::uvec y_ext = arma::exp(X_ext * beta)
+    arma::colvec y_ext = arma::exp(X_ext * beta);
   // Create named list with betas and objective values
   return y_ext;
 }

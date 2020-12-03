@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // LRMultiClass_c
-Rcpp::List LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma::uvec& y, int numIter, double eta, double lambda);
+arma::colvec LRMultiClass_c(const arma::mat& X_ext, const arma::mat& X, const arma::uvec& y, int numIter, double eta, double lambda);
 RcppExport SEXP _acpc_LRMultiClass_c(SEXP X_extSEXP, SEXP XSEXP, SEXP ySEXP, SEXP numIterSEXP, SEXP etaSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -61,16 +61,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // sparsePCA
-arma::mat sparsePCA(arma::mat& X, int r, double lambda, double eps);
-RcppExport SEXP _acpc_sparsePCA(SEXP XSEXP, SEXP rSEXP, SEXP lambdaSEXP, SEXP epsSEXP) {
+Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps);
+RcppExport SEXP _acpc_sparsePCA(SEXP XSEXP, SEXP VstartSEXP, SEXP lambdaSEXP, SEXP epsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< int >::type r(rSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type Vstart(VstartSEXP);
     Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
-    rcpp_result_gen = Rcpp::wrap(sparsePCA(X, r, lambda, eps));
+    rcpp_result_gen = Rcpp::wrap(sparsePCA(X, Vstart, lambda, eps));
     return rcpp_result_gen;
 END_RCPP
 }
