@@ -30,6 +30,9 @@ arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numI
   return Y;
 }
 
+// y - input vector of classes
+// n - length of y
+// K - number of classes in y
 // [[Rcpp::export]]
 arma::mat encode(const arma::uvec& y, const int& n, const int& K) {
   
