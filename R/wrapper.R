@@ -37,5 +37,5 @@ acpc <- function(X, Y = NULL, K = NULL, r, lambda = 0, W = NULL, eps = 0.0001, n
   Y = out$Y
   center = out$center
   # Return the class assignments
-  return(list(Y = Y, center= center, U = U, V = V))
+  return(list(Y = Y, center= center, U = U, V = V, W = W))
 }
