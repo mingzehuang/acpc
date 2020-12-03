@@ -3,11 +3,9 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter) {
+Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter) {
   int n = X.n_rows;
   int p = X.n_cols;
-  int KM = M.n_rows;
-  int pM = M.n_cols;
   arma::mat center_t(p, K);
   arma::mat center_new_t = M.t();
   arma::mat distance(n, K);
@@ -27,5 +25,5 @@ arma::ucolvec MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numI
     center_new_t.each_row() /= arma::sum(Y_index, 0);
     i++;
   } while((i < numIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));;
-  return Y;
+  return Rcpp::List::create(Rcpp::Named("Y") = Y, Rcpp::Named("center") = center_new_t.t());
 }
