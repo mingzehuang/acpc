@@ -15,30 +15,6 @@
 // available from R
 //
 
-// [[Rcpp::export]]
-arma::mat procrustes(arma::mat& X, arma::mat &V){
-    arma::mat U;
-    
-    arma::vec s;
-    arma::mat Q, R;
-    
-    arma::svd_econ(Q, s, R, X * V);
-    U = Q * R.t();
-    return(U);
-}
-
-
-// [[Rcpp::export]]
-double soft_I(double a, double lambda){
-    if (a > lambda){
-        return(a-lambda);
-    }else if (a < -lambda){
-        return(a + lambda);
-    }else{
-        return(0);
-    }
-}
-
 //Sparse PCA problem algorithm
 // [[Rcpp::export]]
 Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps = 0.0001){
@@ -49,6 +25,7 @@ Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps 
     arma::vec s;
     arma::mat Q, R;
     arma::mat U;
+    arma::mat XU, soft_XU;
     arma::svd_econ(Q, s, R, X * Vstart);
     U = Q * R.t();
     arma::mat V(p, r);
@@ -57,9 +34,6 @@ Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps 
     double fold, fnew;
     fold = accu(square(X - U * Vstart.t()))/2 + lambda * accu(abs(Vstart));
     
-    // Additional intermediate
-    arma::mat XU;
-    
     // To store error and objective function difference
     double error = 1000;
     
@@ -67,11 +41,9 @@ Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps 
     while (error > eps){
         XU = X.t() * U;
         // Update V
-        for (int j = 0; j < p; j++){
-            for (int k = 0; k < r; k++){
-                V(j, k) = soft_I(XU(j, k), lambda);
-            }
-        }
+        soft_XU = arma::abs(XU) - lambda;
+        soft_XU(arma::find(soft_XU < 0)).zeros();
+        V = arma::sign(XU) % soft_XU;
         
         // Update U
         arma::svd_econ(Q, s, R, X * V);

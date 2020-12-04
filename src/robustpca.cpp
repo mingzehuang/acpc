@@ -4,17 +4,13 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 Rcpp::List robustPCAadmm_c(arma::mat& M, double gamma = 0.1, double tau = 1, double eps = 0.001){
-  int n = M.n_rows;
-  int p = M.n_cols;
+  int n = M.n_rows, p = M.n_cols;
   arma::mat S(n, p, arma::fill::zeros), eta(n, p, arma::fill::zeros);
   double gammatau = gamma * tau;
   arma::mat L = M - S;
-  double obj_new = (unsigned)!((int)0);
-  double obj;
-  arma::mat Q, R;
-  arma::mat R_t;
+  double obj_new = (unsigned)!((int)0), obj;
+  arma::mat Q, R, R_t, soft_S;
   arma::colvec d, soft_d;
-  arma::mat soft_S;
   do {
     obj = obj_new;
     arma::svd_econ(Q, d, R, M - S - eta);
