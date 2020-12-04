@@ -26,6 +26,6 @@ Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, const arma:
     center_new_t = X_t * Y_index;
     center_new_t.each_row() /= arma::sum(Y_index, 0);
     i++;
-  } while((i < numIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));;
+  } while((i < numIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));
   return Rcpp::List::create(Rcpp::Named("Y") = Y, Rcpp::Named("center") = center_new_t.t());
 }
