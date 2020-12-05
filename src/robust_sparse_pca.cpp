@@ -30,7 +30,7 @@ arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma, double 
 }
 
 // [[Rcpp::export]]
-Rcpp::List robustsparsePCA(arma::mat& X, double eps, int MaxIter, int r, double lambda){
+Rcpp::List sparsePCA(arma::mat& X, double eps, int MaxIter, int r, double lambda){
   int p = X.n_cols;
   double obj_new = (unsigned)!((int)0),obj;
   arma::mat X_t = X.t();
