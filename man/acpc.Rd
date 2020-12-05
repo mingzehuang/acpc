@@ -2,28 +2,71 @@
 % Please edit documentation in R/wrapper.R
 \name{acpc}
 \alias{acpc}
-\title{Title}
+\title{Area classification based on survey data.}
 \usage{
-acpc(X, Y = NULL, K = NULL, r, lambda = 0, eps = 1e-04, numIter = 100)
+acpc(
+  X,
+  cp,
+  r = 2,
+  W = NULL,
+  eps_r = 1e-04,
+  MaxIter_r = 1e+05,
+  gamma = 0.1,
+  tau = 1,
+  eps_s = 1e-04,
+  MaxIter_s = 1000,
+  lambda = 1,
+  MaxIter_k = 1000
+)
 }
 \arguments{
-\item{X}{}
+\item{X}{n * p matrix contains p features for n observations.}
 
-\item{Y}{}
+\item{cp}{K * 1 vector contains initial guess of cluster center points.}
 
-\item{K}{}
+\item{r}{Scalar, number of principle components you want to generate, r<< p.}
 
-\item{r}{}
+\item{W}{r * 1 vector, Weights on principle components.}
 
-\item{lambda}{}
+\item{eps_r}{Scalar, tolerance for robust PCA.}
 
-\item{eps}{}
+\item{MaxIter_r}{Scalar, maximum iteration for robust PCA.}
 
-\item{numIter}{}
+\item{gamma}{Scalar, relative weights between nuclear norm and sparsity penalties for robust PCA.}
+
+\item{tau}{Scalar, scale parameter for ADMM updates in robust PCA.}
+
+\item{eps_s}{Scalar, tolerance for sparSe PCA.}
+
+\item{MaxIter_s}{Scalar, maximum iteration for sparse PCA.}
+
+\item{lambda}{Scalar, sparsity penalty parameter for sparse PCA.}
+
+\item{MaxIter_k}{Scalar, maximum iteration for Kmeans.}
 }
 \value{
-
+Label for clustering, Y; scores for clustering centers, center; loadings for principle components, V.
 }
 \description{
-Title
+Area classification based on survey data.
+}
+\examples{
+# Create matrix M according to M = low rank + few large elements
+n = 100
+p = 40
+# Create rank 3 component
+set.seed(1234)
+out <- svd(matrix(rnorm(n*p), n, p), nu = 3, nv = 3)
+trueL <- out$u \%*\% diag(out$d[1:3]) \%*\% t(out$v)
+# Create sparse component
+trueS <- matrix(rt(n*p, df = 1), n, p)
+trueS[abs(trueS) < 2.5] <- 0
+sum(trueS !=0)
+# Create M by combining the above
+M <- trueL + trueS
+# Verify that M itself is not small rank and not even close to being rank 3
+svd(M)$d
+K = 5
+cp = sample(nrow(X), K)
+acpc(X, cp)
 }

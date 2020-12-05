@@ -6,64 +6,55 @@
 
 using namespace Rcpp;
 
-// MyKmeans_c
-Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, int numIter);
-RcppExport SEXP _acpc_MyKmeans_c(SEXP XSEXP, SEXP KSEXP, SEXP MSEXP, SEXP numIterSEXP) {
+// Kmeans
+Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter);
+RcppExport SEXP _acpc_Kmeans(SEXP XSEXP, SEXP MSEXP, SEXP WSEXP, SEXP MaxIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< int >::type K(KSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type M(MSEXP);
-    Rcpp::traits::input_parameter< int >::type numIter(numIterSEXP);
-    rcpp_result_gen = Rcpp::wrap(MyKmeans_c(X, K, M, numIter));
+    Rcpp::traits::input_parameter< const arma::colvec& >::type W(WSEXP);
+    Rcpp::traits::input_parameter< int >::type MaxIter(MaxIterSEXP);
+    rcpp_result_gen = Rcpp::wrap(Kmeans(X, M, W, MaxIter));
     return rcpp_result_gen;
 END_RCPP
 }
-// procrustes
-arma::mat procrustes(arma::mat& X, arma::mat& V);
-RcppExport SEXP _acpc_procrustes(SEXP XSEXP, SEXP VSEXP) {
+// robustPCA
+arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma, double tau);
+RcppExport SEXP _acpc_robustPCA(SEXP MSEXP, SEXP epsSEXP, SEXP MaxIterSEXP, SEXP gammaSEXP, SEXP tauSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type V(VSEXP);
-    rcpp_result_gen = Rcpp::wrap(procrustes(X, V));
-    return rcpp_result_gen;
-END_RCPP
-}
-// soft_I
-double soft_I(double a, double lambda);
-RcppExport SEXP _acpc_soft_I(SEXP aSEXP, SEXP lambdaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(soft_I(a, lambda));
+    Rcpp::traits::input_parameter< arma::mat& >::type M(MSEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    Rcpp::traits::input_parameter< int >::type MaxIter(MaxIterSEXP);
+    Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(robustPCA(M, eps, MaxIter, gamma, tau));
     return rcpp_result_gen;
 END_RCPP
 }
 // sparsePCA
-Rcpp::List sparsePCA(arma::mat& X, arma::mat& Vstart, double lambda, double eps);
-RcppExport SEXP _acpc_sparsePCA(SEXP XSEXP, SEXP VstartSEXP, SEXP lambdaSEXP, SEXP epsSEXP) {
+Rcpp::List sparsePCA(arma::mat& X, double eps, int MaxIter, int r, double lambda);
+RcppExport SEXP _acpc_sparsePCA(SEXP XSEXP, SEXP epsSEXP, SEXP MaxIterSEXP, SEXP rSEXP, SEXP lambdaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type Vstart(VstartSEXP);
-    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
-    rcpp_result_gen = Rcpp::wrap(sparsePCA(X, Vstart, lambda, eps));
+    Rcpp::traits::input_parameter< int >::type MaxIter(MaxIterSEXP);
+    Rcpp::traits::input_parameter< int >::type r(rSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(sparsePCA(X, eps, MaxIter, r, lambda));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_acpc_MyKmeans_c", (DL_FUNC) &_acpc_MyKmeans_c, 4},
-    {"_acpc_procrustes", (DL_FUNC) &_acpc_procrustes, 2},
-    {"_acpc_soft_I", (DL_FUNC) &_acpc_soft_I, 2},
-    {"_acpc_sparsePCA", (DL_FUNC) &_acpc_sparsePCA, 4},
+    {"_acpc_Kmeans", (DL_FUNC) &_acpc_Kmeans, 4},
+    {"_acpc_robustPCA", (DL_FUNC) &_acpc_robustPCA, 5},
+    {"_acpc_sparsePCA", (DL_FUNC) &_acpc_sparsePCA, 5},
     {NULL, NULL, 0}
 };
 
