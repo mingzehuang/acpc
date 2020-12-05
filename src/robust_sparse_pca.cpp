@@ -2,7 +2,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 // [[Rcpp::export]]
-arma::mat robustPCAadmm_c(arma::mat& M, double eps, int MaxIter, double gamma = 0.1, double tau = 1){
+arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma = 0.1, double tau = 1){
   int n = M.n_rows, p = M.n_cols;
   arma::mat S(n, p, arma::fill::zeros), eta(n, p, arma::fill::zeros);
   double gammatau = gamma * tau;
@@ -30,7 +30,8 @@ arma::mat robustPCAadmm_c(arma::mat& M, double eps, int MaxIter, double gamma = 
 }
 
 // [[Rcpp::export]]
-Rcpp::List sparsePCA(arma::mat& X, int r, double eps, int MaxIter, double lambda = 1){
+Rcpp::List sparsePCA(arma::mat& M, int r, double eps, int MaxIter, double lambda = 1, double gamma = 0.1, double tau = 1){
+  arma::mat X = robustPCA(M, eps, MaxIter, gamma, tau);
   int p = X.n_cols;
   double obj_new = (unsigned)!((int)0),obj;
   arma::colvec s;
