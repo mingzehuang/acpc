@@ -1,7 +1,6 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
-
 // [[Rcpp::export]]
 Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, const arma::colvec& W, int numIter) {
   int n = X.n_rows;
