@@ -1,6 +1,7 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
+
 // [[Rcpp::export]]
 Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int numIter) {
   int n = X.n_rows;
@@ -26,6 +27,6 @@ Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W,
     center_new_t = X_t * Y_index;
     center_new_t.each_row() /= arma::sum(Y_index, 0);
     i++;
-  } while((i < numIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));
+  } while((i < numIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));;
   return Rcpp::List::create(Rcpp::Named("Y") = Y, Rcpp::Named("center") = center_new_t.t());
 }
