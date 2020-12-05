@@ -1,20 +1,18 @@
 
-acpc <- function(X, Y = NULL, K = NULL, r, lambda = 1, gamma = 0.1, tau = 1, W = NULL, eps = 0.0001, MaxIter = 100){
+acpc <- function(X, center, r = 2, W = NULL , eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
   X = as.matrix(X) # Convert X into matrix.
   n = nrow(X) # Compute rows of X.
   p = ncol(X) # Compute columns of X.
-  if (missing(W) | is.null(W)) {
-    W = rep(1/p, p)
-  }
   X = scale(X)* sqrt(n/(n-1))   # Center and scale X
-  rspca = robustsparsePCA(X, r, eps, MaxIter, lambda, gamma, tau) # Sparse PCA for X_ext.
-  U = rspca$U
-  V = rspca$V
-  M = U[sample(nrow(U), K), , drop = F] # Sample initial centers.
-  for (j in 1:K) {
-    M[j, ] = colMeans(X[Y == j, , drop = F])  
+  L = robustPCA(X, eps_r, MaxIter_r, gamma, tau) # Robust PCA
+  spca = sparsePCA(L, eps_s, MaxIter_s, r, lambda) # Sparse PCA
+  U = spca$U
+  V = spca$V
+  M = U[center, , drop = F]
+  if (missing(W) | is.null(W)) {
+    W = rep(1/r, r)
   }
-  out = Kmeans(U, K, M, W, MaxIter)
+  out = Kmeans(U, M, W, MaxIter_k)
   Y = out$Y
   center = out$center
   # Return the class assignments
