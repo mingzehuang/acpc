@@ -30,10 +30,9 @@ arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma, double 
 }
 
 // [[Rcpp::export]]
-Rcpp::List robustsparsePCA(arma::mat& M, double eps_robust, int MaxIter_robust, double gamma, double tau, double eps, int MaxIter, double lambda){
+Rcpp::List robustsparsePCA(arma::mat& M, double eps_robust, int MaxIter_robust, double gamma, double tau, double eps, int MaxIter, int r, double lambda){
   arma::mat X = robustPCA(M, eps_robust, MaxIter_robust, gamma, tau);
   int p = X.n_cols;
-  int r = round(svd(X)$d, 2);
   double obj_new = (unsigned)!((int)0),obj;
   arma::mat X_t = X.t();
   arma::colvec s;
@@ -47,7 +46,7 @@ Rcpp::List robustsparsePCA(arma::mat& M, double eps_robust, int MaxIter_robust, 
     soft_tXU = arma::abs(tXU) - lambda;
     soft_tXU(arma::find(soft_tXU < 0)).zeros();
     V = arma::sign(tXU) % soft_tXU;
-    obj_new = arma::accu(square(X - U * V.t()))/2 + lambda * arma::accu(abs(V));
+    obj_new = arma::accu(arma::square(X - U * V.t()))/2 + lambda * arma::accu(abs(V));
     i++;
   } while ((i < MaxIter) & (std::abs(obj - obj_new) >= eps));
   return Rcpp::List::create(Rcpp::Named("U") = U, Rcpp::Named("V") = V);
