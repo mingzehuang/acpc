@@ -1,5 +1,5 @@
 
-#' Title
+#' Area classification based on survey data.
 #'
 #' @param X n * p matrix contains p features for n observations.
 #' @param cp K * 1 vector contains initial guess of cluster center points.
