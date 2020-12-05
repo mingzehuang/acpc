@@ -2,7 +2,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 // [[Rcpp::export]]
-Rcpp::List MyKmeans_c(const arma::mat& X, int K, const arma::mat& M, const arma::colvec& W, int numIter) {
+Rcpp::List Kmeans(const arma::mat& X, int K, const arma::mat& M, const arma::colvec& W, int numIter) {
   int n = X.n_rows;
   int p = X.n_cols;
   arma::mat center_t(p, K);

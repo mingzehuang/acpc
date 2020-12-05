@@ -1,15 +1,15 @@
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
+
 // [[Rcpp::export]]
-arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma = 0.1, double tau = 1){
+arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma, double tau){
   int n = M.n_rows, p = M.n_cols;
-  arma::mat S(n, p, arma::fill::zeros), eta(n, p, arma::fill::zeros);
+  arma::colvec d, soft_d;
+  arma::mat Q, R, R_t, soft_S, S(n, p, arma::fill::zeros), eta(n, p, arma::fill::zeros);
   double gammatau = gamma * tau;
   arma::mat L = M - S;
   double obj_new = (unsigned)!((int)0), obj;
-  arma::mat Q, R, R_t, soft_S;
-  arma::colvec d, soft_d;
   int i = 0;
   do {
     obj = obj_new;
@@ -30,16 +30,14 @@ arma::mat robustPCA(arma::mat& M, double eps, int MaxIter, double gamma = 0.1, d
 }
 
 // [[Rcpp::export]]
-Rcpp::List sparsePCA(arma::mat& M, int r, double eps, int MaxIter, double lambda = 1, double gamma = 0.1, double tau = 1){
-  arma::mat X = robustPCA(M, eps, MaxIter, gamma, tau);
+Rcpp::List robustsparsePCA(arma::mat& M, double eps_robust, int MaxIter_robust, double gamma, double tau, double eps, int MaxIter, double lambda){
+  arma::mat X = robustPCA(M, eps_robust, MaxIter_robust, gamma, tau);
   int p = X.n_cols;
+  int r = round(svd(X)$d, 2);
   double obj_new = (unsigned)!((int)0),obj;
-  arma::colvec s;
-  arma::mat Q, R;
-  arma::mat U;
   arma::mat X_t = X.t();
-  arma::mat tXU, soft_tXU;
-  arma::mat V(p, r, arma::fill::zeros);
+  arma::colvec s;
+  arma::mat Q, R, U, tXU, soft_tXU, V(p, r, arma::fill::zeros);
   int i = 0;
   do {
     obj = obj_new;
