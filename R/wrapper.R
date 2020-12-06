@@ -34,8 +34,8 @@
 #' # Verify that M itself is not small rank and not even close to being rank 3
 #' svd(M)$d
 #' K = 5
-#' cp = sample(nrow(X), K)
-#' acpc(X, cp)
+#' cp = sample(nrow(M), K)
+#' acpc(M, cp)
 
 acpc <- function(X, cp, r = 2, W = NULL , eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
   X = as.matrix(X) # Convert X into matrix.

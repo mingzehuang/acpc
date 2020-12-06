@@ -67,6 +67,6 @@ M <- trueL + trueS
 # Verify that M itself is not small rank and not even close to being rank 3
 svd(M)$d
 K = 5
-cp = sample(nrow(X), K)
-acpc(X, cp)
+cp = sample(nrow(M), K)
+acpc(M, cp)
 }
