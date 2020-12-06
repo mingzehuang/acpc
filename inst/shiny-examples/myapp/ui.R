@@ -1,4 +1,3 @@
-vars <- setdiff(c("PC1","PC2"), "PC")
 pageWithSidebar(
   headerPanel('Area Classification by Robust Sparse PCA Kmeans clustering'),
   sidebarPanel(
