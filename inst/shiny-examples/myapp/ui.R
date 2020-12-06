@@ -1,3 +1,10 @@
-fluidPage(
-  sliderInput(inputId = "num", label = "Choose a number", value = 25, min = 1, max = 100)
-  , plotOutput("hist"))
+vars <- setdiff(c("PC1","PC2"), "PC")
+pageWithSidebar(
+  headerPanel('Area Classification by Robust Sparse PCA Kmeans clustering'),
+  sidebarPanel(
+    numericInput('clusters', 'Cluster count', 3, min = 1, max = 9)
+  ),
+  mainPanel(
+    plotOutput('plot1')
+  )
+)

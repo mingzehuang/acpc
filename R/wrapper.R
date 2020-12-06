@@ -56,8 +56,6 @@ acpc <- function(X, K, r = 2, cp = NULL, W = NULL , eps_r = 1e-4, MaxIter_r = 1e
     W = rep(1/r, r)
   }
   Y = Kmeans(U, M, W, MaxIter_k)
-  saveRDS(U, "R/data/U.rds")
-  saveRDS(V, "R/data/V.rds")
   # Return the class assignments
   return(list(Y = Y, U = U, V = V, clusterlabel = cbind(name, Y)))
 }
