@@ -1,3 +1,5 @@
+#' Interface for Area classification based on survey data.
+#' @return Run shiny app for output.
 #' @export
 runExample <- function() {
   appDir <- system.file("shiny-examples", "myapp", package = "acpc")
