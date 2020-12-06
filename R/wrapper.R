@@ -34,7 +34,7 @@
 #' # Verify that M itself is not small rank and not even close to being rank 3
 #' svd(M)$d
 #' K = 5
-#' M <- cbind(as.character(1:n), M)
+#' M <- data.frame(cbind(as.character(1:n), M))
 #' acpc(M, K)
 
 acpc <- function(X, K, r = 2, cp = NULL, W = NULL , eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
