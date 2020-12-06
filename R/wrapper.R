@@ -34,15 +34,15 @@
 #' # Verify that M itself is not small rank and not even close to being rank 3
 #' svd(M)$d
 #' K = 5
-#' M <- data.frame(cbind(as.character(1:n), M))
+#' M <- cbind(data.frame(as.character(1:n), M))
 #' acpc(M, K)
 
 acpc <- function(X, K, r = 2, cp = NULL, W = NULL , eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
   X = na.omit(X) # Delete observations with missing value.
   name = X[ ,1] # Extract name ID for observations.
+  X = as.matrix(X[ ,-1]) # Extract features for observations.
   n = nrow(X) # Compute rows of X.
   p = ncol(X) # Compute columns of X.
-  X = X[ ,-1] # Extract features for observations.
   X = scale(X)* sqrt(n/(n-1))   # Center and scale X
   L = robustPCA(X, eps_r, MaxIter_r, gamma, tau) # Robust PCA
   spca = sparsePCA(L, eps_s, MaxIter_s, r, lambda) # Sparse PCA
@@ -56,6 +56,8 @@ acpc <- function(X, K, r = 2, cp = NULL, W = NULL , eps_r = 1e-4, MaxIter_r = 1e
     W = rep(1/r, r)
   }
   Y = Kmeans(U, M, W, MaxIter_k)
+  saveRDS(U, "R/data/U.rds")
+  saveRDS(V, "R/data/V.rds")
   # Return the class assignments
   return(list(Y = Y, U = U, V = V, clusterlabel = cbind(name, Y)))
 }

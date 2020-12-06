@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // Kmeans
-Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter);
+arma::uvec Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter);
 RcppExport SEXP _acpc_Kmeans(SEXP XSEXP, SEXP MSEXP, SEXP WSEXP, SEXP MaxIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

@@ -6,8 +6,9 @@
 \usage{
 acpc(
   X,
-  cp,
+  K,
   r = 2,
+  cp = NULL,
   W = NULL,
   eps_r = 1e-04,
   MaxIter_r = 1e+05,
@@ -20,11 +21,11 @@ acpc(
 )
 }
 \arguments{
-\item{X}{n * p matrix contains p features for n observations.}
-
-\item{cp}{K * 1 vector contains initial guess of cluster center points.}
+\item{X}{n * (p + 1) matrix contains first column for name and the rest p numeric features for n observations.}
 
 \item{r}{Scalar, number of principle components you want to generate, r<< p.}
+
+\item{cp}{K * 1 vector contains initial guess of cluster center points.}
 
 \item{W}{r * 1 vector, Weights on principle components.}
 
@@ -45,7 +46,7 @@ acpc(
 \item{MaxIter_k}{Scalar, maximum iteration for Kmeans.}
 }
 \value{
-Label for clustering, Y; scores for clustering centers, center; loadings for principle components, V.
+Label for clustering, Y; scores for observations, U; loadings for principle components, V; Observation name and corresponding cluster label, clusterlabel.
 }
 \description{
 Area classification based on survey data.
@@ -67,6 +68,6 @@ M <- trueL + trueS
 # Verify that M itself is not small rank and not even close to being rank 3
 svd(M)$d
 K = 5
-cp = sample(nrow(M), K)
-acpc(M, cp)
+M <- cbind(data.frame(as.character(1:n), M))
+acpc(M, K)
 }
