@@ -23,6 +23,8 @@ acpc(
 \arguments{
 \item{X}{n * (p + 1) matrix contains first column for name and the rest p numeric features for n observations.}
 
+\item{K}{Scalar, Number of clusters.}
+
 \item{r}{Scalar, number of principle components you want to generate, r<< p.}
 
 \item{cp}{K * 1 vector contains initial guess of cluster center points.}

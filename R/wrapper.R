@@ -2,8 +2,9 @@
 #' Area classification based on survey data.
 #'
 #' @param X n * (p + 1) matrix contains first column for name and the rest p numeric features for n observations.
-#' @param cp K * 1 vector contains initial guess of cluster center points.
+#' @param K Scalar, Number of clusters.
 #' @param r Scalar, number of principle components you want to generate, r<< p.
+#' @param cp K * 1 vector contains initial guess of cluster center points.
 #' @param W r * 1 vector, Weights on principle components.
 #' @param eps_r Scalar, tolerance for robust PCA.
 #' @param MaxIter_r Scalar, maximum iteration for robust PCA.
