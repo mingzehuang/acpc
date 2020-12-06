@@ -1,9 +1,11 @@
 pageWithSidebar(
   headerPanel('Area Classification by Robust Sparse PCA Kmeans clustering'),
   sidebarPanel(
-    numericInput('clusters', 'Cluster count', 3, min = 1, max = 9)
-  ),
+    numericInput('clusters', 'Cluster count', 3, min = 1, max = 9),
+    hr(),
+    selectInput("pc", "Principle Component", choices = c("First_PC","Second_PC"))),
   mainPanel(
-    plotOutput('plot1')
+    plotOutput('plot1'),
+    plotlyOutput("plot2")
   )
 )
