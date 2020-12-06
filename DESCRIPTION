@@ -1,6 +1,6 @@
 Package: acpc
 Type: Package
-Title: Area classification based on survey data.
+Title: Area classification based on survey data
 Version: 1.0
 Date: 2020-11-13
 Author: person("Mingze", "Huang", email = "sharkmanhmz@tamu.edu", role = c("aut", "cre"))
