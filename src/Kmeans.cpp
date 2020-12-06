@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter) {
+arma::uvec Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter) {
   int n = X.n_rows;
   int p = X.n_cols;
   int K = M.n_rows;
@@ -28,5 +28,5 @@ Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W,
     center_new_t.each_row() /= arma::sum(Y_index, 0);
     i++;
   } while((i < MaxIter) & (!(arma::approx_equal(center_new_t, center_t, "absdiff", 0))));
-  return Rcpp::List::create(Rcpp::Named("Y") = Y, Rcpp::Named("center") = center_new_t.t());
+  return (Y);
 }
