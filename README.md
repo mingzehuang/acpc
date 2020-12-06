@@ -3,14 +3,12 @@ title: "Area Classification on Dimension Reduced Micro-level Survey Data"
 author: "Mingze Huang"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: pdf_document
-bibliography: reference.bib
-link-citations: yes
 ---
 *Github Account:* https://github.com/mingzehuang
 
 
 # Backgroud
-There are some area classification for UK National Statistics [@vickers2007creating]. They simply use K-means methods to classify UK statistical areas based on 41 census variable. For some reason, there is no classification on US census data, although there are much more census data in US.
+There are some area classification for UK National Statistics. They simply use K-means methods to classify UK statistical areas based on 41 census variable. For some reason, there is no classification on US census data, although there are much more census data in US.
 
 
 The classification for statistical areas may not be a difficult problem in Statistics but essentially very important in social-economic research. Nowadays most of causal inference or policy evaluation papers in Microeconomics are based on random control trial (RCT) such as difference-in-difference approach. However, the first thing to proceed difference-in-difference is to select control group and treatment group. That requires the similarity between control group and treatment group except for treatment (policy implementation). In practice, microeconomic researchers just pick the adjacent areas as control group and treatment group and includes some covariates potentially affect outcome not through the treatment. I think the better way is to classify the statistical areas into different clusters then select control group and treatment group within the same cluster.
@@ -24,6 +22,3 @@ The structure of my package I think should be suitable for multi-level multi-pur
 
 
 Eventually it should be output clusters and principle components for each clusters for users by customization. The interface shiny page would be also included in package so that it will generate a dashboard shows different layers, and top influential components which determine the cluster for a specific area.
-
-
-# References

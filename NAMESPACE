@@ -3,4 +3,5 @@
 export(acpc)
 export(runExample)
 importFrom(Rcpp,evalCpp)
+importFrom(stats,na.omit)
 useDynLib(acpc, .registration = TRUE)
