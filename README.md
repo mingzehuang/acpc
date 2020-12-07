@@ -90,3 +90,9 @@ You should run it in your console.
 
     data_for_acpc = your_own_dataset # Rename your own dataset as "data_for_acpc"!
     visualzation()
+
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/mingzehuang/acpc/workflows/R-CMD-check/badge.svg)](https://github.com/mingzehuang/acpc/actions)
+<!-- badges: end -->
