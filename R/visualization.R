@@ -1,6 +1,6 @@
-#' Interface for Area classification based on survey data.
+#' Interface for Area classification based on census data.
 #'
-#' @return Run shiny app for output.
+#' @return Run shiny app for output, two principle components, all parameters are set by default value.
 #' @export
 visualization <- function() {
   appDir <- system.file("shiny-examples", "myapp", package = "acpc")
