@@ -19,7 +19,7 @@ acpc(
 )
 }
 \arguments{
-\item{X}{n * (p + 1) matrix contains first column for name and the rest p numeric features for n observations.}
+\item{X}{n * (p + 1) data frame contains first column for observation name ID and the rest p numeric features for n observations, column names are feature IDs.}
 
 \item{K}{Scalar, Number of clusters.}
 
