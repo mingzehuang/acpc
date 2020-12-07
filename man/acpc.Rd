@@ -8,7 +8,6 @@ acpc(
   X,
   K,
   r = 2,
-  cp = NULL,
   eps_r = 1e-04,
   MaxIter_r = 1e+05,
   gamma = 0.1,
@@ -25,8 +24,6 @@ acpc(
 \item{K}{Scalar, Number of clusters.}
 
 \item{r}{Scalar, number of principle components you want to generate, r<< p.}
-
-\item{cp}{K * 1 vector contains initial guess of cluster center points.}
 
 \item{eps_r}{Scalar, tolerance for robust PCA.}
 
