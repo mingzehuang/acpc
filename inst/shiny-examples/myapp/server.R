@@ -1,5 +1,9 @@
 function(input, output, session) {
-  
+  if (!(exists(censusdata))) {
+    censusdata = readRDS(url("https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds", "rb"))
+  } else {
+    censusdata = censusdata
+  }
   # Combine the selected variables into a new data frame
   results <- reactive({acpc(censusdata, input$clusters)})
   
