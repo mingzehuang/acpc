@@ -1,4 +1,7 @@
 #' Interface for Area classification based on survey data.
+#'
+#' @param censusdata Input data set for visualization.
+#'
 #' @return Run shiny app for output.
 #' @export
 visualization <- function(censusdata) {
