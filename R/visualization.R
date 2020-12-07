@@ -1,5 +1,7 @@
 #' Interface for Area classification based on survey data.
 #'
+#' @param data_for_acpc Dataset for visualization.
+#'
 #' @return Run shiny app for output.
 #' @export
 visualization <- function(data_for_acpc = NULL) {

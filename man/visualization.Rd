@@ -4,7 +4,10 @@
 \alias{visualization}
 \title{Interface for Area classification based on survey data.}
 \usage{
-visualization()
+visualization(data_for_acpc = NULL)
+}
+\arguments{
+\item{data_for_acpc}{Dataset for visualization.}
 }
 \value{
 Run shiny app for output.
