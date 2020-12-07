@@ -1,5 +1,5 @@
 
-#' Area classification based on survey data.
+#' Area Classification on Dimension Reduced Micro-level Survey Data
 #'
 #' @param X n * (p + 1) data frame contains first column for observation name ID and the rest p numeric features for n observations, column names are feature IDs.
 #' @param K Scalar, Number of clusters.

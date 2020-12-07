@@ -33,7 +33,7 @@ acpc(
 
 \item{tau}{Scalar, scale parameter for ADMM updates in robust PCA.}
 
-\item{eps_s}{Scalar, tolerance for sparSe PCA.}
+\item{eps_s}{Scalar, tolerance for sparse PCA.}
 
 \item{MaxIter_s}{Scalar, maximum iteration for sparse PCA.}
 
