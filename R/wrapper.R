@@ -1,4 +1,5 @@
 
+globalVariables("censusdata")
 #' Area classification based on survey data.
 #'
 #' @param X n * (p + 1) matrix contains first column for name and the rest p numeric features for n observations.
