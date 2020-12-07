@@ -6,6 +6,9 @@
 \usage{
 visualization(censusdata)
 }
+\arguments{
+\item{censusdata}{Input data set for visualization.}
+}
 \value{
 Run shiny app for output.
 }
