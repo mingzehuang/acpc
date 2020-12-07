@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter) {
+Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, int MaxIter) {
   int n = X.n_rows;
   int p = X.n_cols;
   int K = M.n_rows;
@@ -19,9 +19,8 @@ Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W,
   do {
     center_t = center_new_t;
     Y_index.zeros();
-    distance = 2 * X * (center_t.each_col() % W);
-    sqcenter_t = arma::square(center_t);
-    distance.each_row() -= arma::sum((sqcenter_t.each_col() % W), 0);
+    distance = 2 * X * center_t;
+    distance.each_row() -= arma::sum(arma::square(center_t), 0);
     Y = arma::index_max(distance, 1);
     Y_index(arma::sub2ind(arma::size(Y_index), (arma::join_rows(Y_r, Y)).t())).ones();
     center_new_t = X_t * Y_index;

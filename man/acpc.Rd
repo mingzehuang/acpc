@@ -9,7 +9,6 @@ acpc(
   K,
   r = 2,
   cp = NULL,
-  W = NULL,
   eps_r = 1e-04,
   MaxIter_r = 1e+05,
   gamma = 0.1,
@@ -29,8 +28,6 @@ acpc(
 
 \item{cp}{K * 1 vector contains initial guess of cluster center points.}
 
-\item{W}{r * 1 vector, Weights on principle components.}
-
 \item{eps_r}{Scalar, tolerance for robust PCA.}
 
 \item{MaxIter_r}{Scalar, maximum iteration for robust PCA.}
@@ -48,7 +45,7 @@ acpc(
 \item{MaxIter_k}{Scalar, maximum iteration for Kmeans.}
 }
 \value{
-Label for clustering, Y; scores for observations, U; loadings for principle components, V; Observation name and corresponding cluster label, clusterlabel.
+Label for clustering, Y; scores for observations, U; loadings for principle components, V.
 }
 \description{
 Area classification based on survey data.

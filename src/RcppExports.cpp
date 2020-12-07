@@ -7,16 +7,15 @@
 using namespace Rcpp;
 
 // Kmeans
-Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, const arma::colvec& W, int MaxIter);
-RcppExport SEXP _acpc_Kmeans(SEXP XSEXP, SEXP MSEXP, SEXP WSEXP, SEXP MaxIterSEXP) {
+Rcpp::List Kmeans(const arma::mat& X, const arma::mat& M, int MaxIter);
+RcppExport SEXP _acpc_Kmeans(SEXP XSEXP, SEXP MSEXP, SEXP MaxIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type M(MSEXP);
-    Rcpp::traits::input_parameter< const arma::colvec& >::type W(WSEXP);
     Rcpp::traits::input_parameter< int >::type MaxIter(MaxIterSEXP);
-    rcpp_result_gen = Rcpp::wrap(Kmeans(X, M, W, MaxIter));
+    rcpp_result_gen = Rcpp::wrap(Kmeans(X, M, MaxIter));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -52,7 +51,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_acpc_Kmeans", (DL_FUNC) &_acpc_Kmeans, 4},
+    {"_acpc_Kmeans", (DL_FUNC) &_acpc_Kmeans, 3},
     {"_acpc_robustPCA", (DL_FUNC) &_acpc_robustPCA, 5},
     {"_acpc_sparsePCA", (DL_FUNC) &_acpc_sparsePCA, 5},
     {NULL, NULL, 0}
