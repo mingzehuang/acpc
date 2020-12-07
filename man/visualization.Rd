@@ -4,10 +4,7 @@
 \alias{visualization}
 \title{Interface for Area classification based on survey data.}
 \usage{
-visualization(censusdata = NULL)
-}
-\arguments{
-\item{censusdata}{Input data set for visualization.}
+visualization()
 }
 \value{
 Run shiny app for output.

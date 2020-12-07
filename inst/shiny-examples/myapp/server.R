@@ -1,11 +1,11 @@
 function(input, output, session) {
-  if (!(exists(censusdata))) {
-    censusdata = readRDS(url("https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds", "rb"))
+  if (!(exists(data_for_acpc))) {
+    data_for_acpc = readRDS(url("https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds", "rb"))
   } else {
-    censusdata = censusdata
+    data_for_acpc = data_for_acpc
   }
   # Combine the selected variables into a new data frame
-  results <- reactive({acpc(censusdata, input$clusters)})
+  results <- reactive({acpc(data_for_acpc, input$clusters)})
   
   output$plot1 <- renderPlot({
     palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
