@@ -13,7 +13,7 @@
 #' @param lambda Scalar, sparsity penalty parameter for sparse PCA.
 #' @param MaxIter_k Scalar, maximum iteration for Kmeans.
 #'
-#' @return Label for clustering, Y; scores for observations, U; loadings for principle components, V.
+#' @return Label for clustering, Y; scores for observations, U; scores for clustering centers, center; loadings for principle components, V.
 #' @export
 #'
 #' @examples 

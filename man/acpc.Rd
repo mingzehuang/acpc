@@ -42,7 +42,7 @@ acpc(
 \item{MaxIter_k}{Scalar, maximum iteration for Kmeans.}
 }
 \value{
-Label for clustering, Y; scores for observations, U; loadings for principle components, V.
+Label for clustering, Y; scores for observations, U; scores for clustering centers, center; loadings for principle components, V.
 }
 \description{
 Area Classification on Dimension Reduced Micro-level Census Data
