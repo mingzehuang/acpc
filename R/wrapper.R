@@ -37,16 +37,16 @@
 #' M <- cbind(data.frame(as.character(1:n), M))
 #' acpc(M, K)
 
-acpc <- function(X, K, r = 2, cp = NULL, eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
+acpc <- function(X, K, r = 2, cp = NULL, eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 0.1, MaxIter_k = 1e+3){
   X = na.omit(X) # Delete observations with missing value.
   ID = X[ ,1] # Extract name ID for observations.
   X = as.matrix(X[ ,-1]) # Extract features for observations.
-  featureID = names(X) # Etract ID for features.
+  featureID = colnames(X) # Etract ID for features.
   n = nrow(X) # Compute rows of X.
   p = ncol(X) # Compute columns of X.
   X = scale(X)* sqrt(n/(n-1))   # Center and scale X
   L = robustPCA(X, eps_r, MaxIter_r, gamma, tau) # Robust PCA
-  spca = sparsePCA(L, eps_s, MaxIter_s, r, lambda) # Sparse PCA
+  spca = sparsePCA(L, eps_s, MaxIter_s, r, lambda = 0.1) # Sparse PCA
   U = spca$U
   V = spca$V
   rownames(V) = featureID
