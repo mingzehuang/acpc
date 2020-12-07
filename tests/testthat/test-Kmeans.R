@@ -1,5 +1,5 @@
 test_that("Input checks work", {
-  set.seed(NULL)
+  set.seed(1234)
   # Three clusters; set the initial starting points to avoid randomness
   X = rbind(matrix(rnorm(100, 6, 3), ncol = 2), matrix(rnorm(100, -6, 3), ncol = 2), 
             matrix(rnorm(100, 20 ,3), ncol = 2))

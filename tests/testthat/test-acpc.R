@@ -1,7 +1,7 @@
 test_that("Input checks work", {
   n = 100
   p = 40
-  set.seed(NULL)
+  set.seed(1234)
   out <- svd(matrix(rnorm(n*p), n, p), nu = 3, nv = 3)
   trueL <- out$u %*% diag(out$d[1:3]) %*% t(out$v)
   trueS <- matrix(rt(n*p, df = 1), n, p)

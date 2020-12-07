@@ -1,5 +1,5 @@
 test_that("Input checks work", {
-  set.seed(NULL)
+  set.seed(1234)
   X <-matrix(rnorm(110), 11, 5)
   #V <-matrix(rnorm(30), 5, 3)
   V <-matrix(0, 5, 3)
