@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrapper.R
 \name{acpc}
 \alias{acpc}
-\title{Area Classification on Dimension Reduced Micro-level Survey Data}
+\title{Area Classification on Dimension Reduced Micro-level Census Data}
 \usage{
 acpc(
   X,
@@ -45,7 +45,7 @@ acpc(
 Label for clustering, Y; scores for observations, U; loadings for principle components, V.
 }
 \description{
-Area Classification on Dimension Reduced Micro-level Survey Data
+Area Classification on Dimension Reduced Micro-level Census Data
 }
 \examples{
 # Create matrix M according to M = low rank + few large elements

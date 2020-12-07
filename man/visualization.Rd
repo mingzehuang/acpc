@@ -10,5 +10,5 @@ visualization()
 Run shiny app for output, two principle components, all parameters are set by default value.
 }
 \description{
-Interface for Area classification based on census data.
+You're supposed to save your data input as an object call "data_for_acpc" in your global environment, then do visualization() to see the App window.
 }
