@@ -1,7 +1,7 @@
 
 #' Area classification based on survey data.
 #'
-#' @param X n * (p + 1) matrix contains first column for name and the rest p numeric features for n observations.
+#' @param X n * (p + 1) data frame contains first column for observation name ID and the rest p numeric features for n observations, column names are feature IDs.
 #' @param K Scalar, Number of clusters.
 #' @param r Scalar, number of principle components you want to generate, r<< p.
 #' @param eps_r Scalar, tolerance for robust PCA.
