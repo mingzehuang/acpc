@@ -4,7 +4,7 @@
 #'
 #' @return Run shiny app for output.
 #' @export
-visualization <- function(censusdata) {
+visualization <- function(censusdata = NULL) {
   if (missing(cencusdata) | is.null(censusdata))
   censusdata = readRDS(url("https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds", "rb"))
   appDir <- system.file("shiny-examples", "myapp", package = "acpc")
