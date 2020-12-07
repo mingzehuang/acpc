@@ -17,6 +17,18 @@ was inspired by
 2001 output area classification”. *J. R. Statist. Soc.
 A*](https://rss.onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-985X.2007.00466.x).
 
+The input data matrix is expected to be n rows, p + 1 columns data
+frame, which is commonly used in census data. The first column contains
+name IDs for all n observations, the rest p columns are features. The
+column names for features are feature IDs.
+
+The package will omit those observations with missing values.
+
+Output list includes the cluster labels for all (non-missing)
+observations corresponding to observation names; the scores for
+clustering centers; the scores for observations; the loading coeffcients
+for corresponding principle components and features.
+
 Installation
 ------------
 
