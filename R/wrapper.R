@@ -55,7 +55,7 @@ acpc <- function(X, K, r = 2, cp = NULL, eps_r = 1e-4, MaxIter_r = 1e+5, gamma =
   }
   M = U[cp, , drop = F]
   classification = Kmeans(U, M, MaxIter_k)
-  Y = classification$Y
+  Y = classification$Y + 1
   names(Y) = ID
   center = classification$center
   # Return the class assignments

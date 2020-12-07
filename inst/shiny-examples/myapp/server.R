@@ -8,8 +8,8 @@ function(input, output, session) {
               "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
     
     par(mar = c(5.1, 4.1, 0, 1))
-    plot(results()$U, col = results()$cluster, pch = 20, cex = 3)
-    points(results()$centers, pch = 4, cex = 4, lwd = 4)
+    plot(results()$U, col = results()$Y, pch = 20, cex = 3, xlab = "Principle Component 1", ylab = "Principle Component 2")
+    points(results()$center, pch = 4, cex = 4, lwd = 4)
   }
   )
   
