@@ -15,7 +15,7 @@ acpc(
   tau = 1,
   eps_s = 1e-04,
   MaxIter_s = 1000,
-  lambda = 1,
+  lambda = 0.1,
   MaxIter_k = 1000
 )
 }
