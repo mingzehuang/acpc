@@ -2,13 +2,13 @@
 % Please edit documentation in R/visualization.R
 \name{visualization}
 \alias{visualization}
-\title{Interface for Area classification based on survey data.}
+\title{Interface for Area classification based on census data.}
 \usage{
 visualization()
 }
 \value{
-Run shiny app for output.
+Run shiny app for output, two principle components, all parameters are set by default value.
 }
 \description{
-Interface for Area classification based on survey data.
+Interface for Area classification based on census data.
 }
