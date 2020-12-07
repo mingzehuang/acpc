@@ -62,6 +62,9 @@ Don’t run this chunk in Rmd/md file if you don’t like warning. Shinny
 App requires continuous serving, you will see warning if you stop
 serving.
 
+Please make sure you connect to internet since the default data is
+online.
+
 You should run it in your console.
 
     # Shinny App visualization (only works for two principle components case!)
