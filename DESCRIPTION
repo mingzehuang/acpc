@@ -6,7 +6,7 @@ Date: 2020-11-13
 Author: person("Mingze", "Huang", email = "sharkmanhmz@tamu.edu", role = c("aut", "cre"))
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: The R package `acpc` implements robust PCA, then sparse PCA, then K-means classification for Micro-level census data. The original idea was inspired by
-[Vickers D. and Phil R. (2007). "Creating the UK National Statistics 2001 output area classification". *J. R. Statist. Soc. A*] and several similar assignments by [Irina Gaynanova] when I'm taking Statistical Computation at Texas A&M University as a graduate student.
+             [Vickers D. and Phil R. (2007). "Creating the UK National Statistics 2001 output area classification". *J. R. Statist. Soc. A*] and several similar assignments by [Irina Gaynanova] when I'm taking Statistical Computation at Texas A&M University as a graduate student.
 License: GPL-3
 Encoding: UTF-8
 Imports: Rcpp (>= 1.0.5), shiny
