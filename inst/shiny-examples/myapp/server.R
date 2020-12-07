@@ -15,6 +15,6 @@ function(input, output, session) {
   
   output$plot2 <- renderPlot({
     # Render a barplot
-    barplot(results()$V[ ,input$pc], main=input$pc, ylab="Loading coefficients", xlab="Original Features")
+    barplot(results()$V[ ,input$pc], main = paste("Principle Component ", input$pc), ylab="Loading coefficients", xlab="Original Features")
   })
 }
