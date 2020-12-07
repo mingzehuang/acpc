@@ -1,24 +1,78 @@
----
-title: "Area Classification on Dimension Reduced Micro-level Survey Data"
-author: "Mingze Huang"
-date: '`r format(Sys.Date(), "%B %d, %Y")`'
-output: pdf_document
----
-*Github Account:* https://github.com/mingzehuang
+*Github Account:*
+<a href="https://github.com/mingzehuang" class="uri">https://github.com/mingzehuang</a>
 
+acpc: Area Classification on Dimension Reduced Micro-level Census Data
+======================================================================
 
-# Backgroud
-There are some area classification for UK National Statistics. They simply use K-means methods to classify UK statistical areas based on 41 census variable. For some reason, there is no classification on US census data, although there are much more census data in US.
+**Acknowledgment:** This package is inspired by several similar
+assignments by [Irina Gaynanova](https://irinagain.github.io/) when I’m
+taking Statistical Computation at Texas A&M University as a graduate
+student.
 
+The R package `acpc` implements robust PCA, then sparse PCA, then
+K-means classification for Micro-level census data. The original idea
+was inspired by
 
-The classification for statistical areas may not be a difficult problem in Statistics but essentially very important in social-economic research. Nowadays most of causal inference or policy evaluation papers in Microeconomics are based on random control trial (RCT) such as difference-in-difference approach. However, the first thing to proceed difference-in-difference is to select control group and treatment group. That requires the similarity between control group and treatment group except for treatment (policy implementation). In practice, microeconomic researchers just pick the adjacent areas as control group and treatment group and includes some covariates potentially affect outcome not through the treatment. I think the better way is to classify the statistical areas into different clusters then select control group and treatment group within the same cluster.
+[Vickers D. and Phil R. (2007). “Creating the UK National Statistics
+2001 output area classification”. *J. R. Statist. Soc.
+A*](https://rss.onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-985X.2007.00466.x).
 
+Installation
+------------
 
-Microeconomic research are shifting from aggregate level to regional level in recent years. Regional comparison on the response of specific macro shocks also need to cluster areas into several groups for comparison.
+    devtools::install_github("mingzehuang/acpc")
 
+Example for function acpc()
+---------------------------
 
-# Functionality
-The structure of my package I think should be suitable for multi-level multi-purpose area classification. The input argument will be survey data with lots of area observations (n) and many variables (social-economic features). If the dimensions of features are small, the package is going to proceed classification directly, otherwise it will do sparse PCA first, then go to classification. If the data are hierachical, the sparse PCA will have penalty term for group LASSO and exclusive LASSO (the magnitude of penalty coefficient can be customized by user to meet their interpretation purpose). For classification, if the data has pre-classified labels for training purpose, the package is going to do supervised classification on training data then apply the model to unlabeled area. If the data have no labels, it will directly go to unsupervised learning to classify by features. Users should be able to adjust the weights on different features in classification. The unsupervised learning I'm going to include at least K-means, the supervised learning I'm going to include at least multinomial logistic regression. I'm going to include more methods gradually.
+    library(acpc)
+    # Demographic data for each county in US
+    demo_data = readRDS(url(
+    "https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds",
+      "rb"))
 
+    # Set number of clusters
+    K = 3
 
-Eventually it should be output clusters and principle components for each clusters for users by customization. The interface shiny page would be also included in package so that it will generate a dashboard shows different layers, and top influential components which determine the cluster for a specific area.
+    # Classification outputs
+    acpcresult <- acpc(demo_data, K)
+    acpcresult$Y # Cluster label for each observation.
+    acpcresult$center # Scores for cluster centers.
+    acpcresult$U # Scores for observations.
+    acpcresult$V # Loadings for corresponding principle components and original features.
+
+Example by default data for function visualization()
+====================================================
+
+Don’t run this chunk in Rmd/md file if you don’t like warning. Shinny
+App requires continuous serving, you will see warning if you stop
+serving.
+
+You should run it in your console.
+
+    # Shinny App visualization (only works for two principle components case!)
+    if(exists("data_for_acpc")) {
+    rm(data_for_acpc)
+    } # Clean your global environment to avoid name conflict!
+
+    # Generate App for default dataset
+
+    visualization()
+
+Use your own data for function visualization()
+==============================================
+
+Don’t run this chunk it in Rmd/md file if you don’t like warning. Shinny
+App requires continuous serving, you will see warning if you stop
+serving.
+
+You should run it in your console.
+
+    # Generate App for your own dataset
+
+    your_own_dataset = readRDS(url(
+    "https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds",
+    "rb")) # Load your own dataset
+
+    data_for_acpc = your_own_dataset # Rename your own dataset as "data_for_acpc"!
+    visualzation()
