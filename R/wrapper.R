@@ -5,7 +5,6 @@
 #' @param K Scalar, Number of clusters.
 #' @param r Scalar, number of principle components you want to generate, r<< p.
 #' @param cp K * 1 vector contains initial guess of cluster center points.
-#' @param W r * 1 vector, Weights on principle components.
 #' @param eps_r Scalar, tolerance for robust PCA.
 #' @param MaxIter_r Scalar, maximum iteration for robust PCA.
 #' @param gamma Scalar, relative weights between nuclear norm and sparsity penalties for robust PCA.
@@ -15,7 +14,7 @@
 #' @param lambda Scalar, sparsity penalty parameter for sparse PCA.
 #' @param MaxIter_k Scalar, maximum iteration for Kmeans.
 #'
-#' @return Label for clustering, Y; scores for observations, U; loadings for principle components, V; Observation name and corresponding cluster label, clusterlabel.
+#' @return Label for clustering, Y; scores for observations, U; loadings for principle components, V.
 #' @export
 #'
 #' @examples 
@@ -38,10 +37,11 @@
 #' M <- cbind(data.frame(as.character(1:n), M))
 #' acpc(M, K)
 
-acpc <- function(X, K, r = 2, cp = NULL, W = NULL , eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
+acpc <- function(X, K, r = 2, cp = NULL, eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau = 1, eps_s = 1e-4, MaxIter_s = 1e+3,  lambda = 1, MaxIter_k = 1e+3){
   X = na.omit(X) # Delete observations with missing value.
-  name = X[ ,1] # Extract name ID for observations.
+  ID = X[ ,1] # Extract name ID for observations.
   X = as.matrix(X[ ,-1]) # Extract features for observations.
+  featureID = names(X) # Etract ID for features.
   n = nrow(X) # Compute rows of X.
   p = ncol(X) # Compute columns of X.
   X = scale(X)* sqrt(n/(n-1))   # Center and scale X
@@ -49,15 +49,15 @@ acpc <- function(X, K, r = 2, cp = NULL, W = NULL , eps_r = 1e-4, MaxIter_r = 1e
   spca = sparsePCA(L, eps_s, MaxIter_s, r, lambda) # Sparse PCA
   U = spca$U
   V = spca$V
+  rownames(V) = featureID
   if (missing(cp) | is.null(cp)) {
     cp = sample(n, K)
   }
   M = U[cp, , drop = F]
-  if (missing(W) | is.null(W)) {
-    W = rep(1/r, r)
-  }
-  Y = Kmeans(U, M, W, MaxIter_k)$Y
-  center = Kmeans(U, M, W, MaxIter_k)$Y
+  classification = Kmeans(U, M, MaxIter_k)
+  Y = classification$Y
+  names(Y) = ID
+  center = classification$center
   # Return the class assignments
-  return(list(Y = Y, U = U, center = center, V = V, clusterlabel = cbind(name, Y)))
+  return(list(Y = Y, U = U, center = center, V = V))
 }
