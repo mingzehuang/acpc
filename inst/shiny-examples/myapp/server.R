@@ -1,7 +1,7 @@
 function(input, output, session) {
   
   # Combine the selected variables into a new data frame
-  results <- reactive({Kmeans(data, input$clusters)})
+  results <- reactive({acpc(data, input$clusters)})
   
   output$plot1 <- renderPlot({
     palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",

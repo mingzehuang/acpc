@@ -10,3 +10,4 @@ pageWithSidebar(
     plotOutput("plot2")
   )
 )
+)
