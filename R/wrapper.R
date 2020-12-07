@@ -42,6 +42,8 @@ acpc <- function(X, K, r = 2, eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau =
   X = X[ , -1] # Extract features for observations.
   featureID = colnames(X) # Etract ID for features.
   X = as.matrix(X) # Convert features into matrix.
+  n = nrow(X) # Compute rows of X.
+  p = ncol(X) # Compute columns of X.
   if (eps_r <= 0 | eps_s <= 0) {
     stop(paste("Tolerance should be positive, whereas eps_r = ", eps_r, " or eps_s = ", eps_s, "not greater than 0."))
   } else if (MaxIter_r < 10 | MaxIter_s < 10 | MaxIter_k < 10) {
@@ -50,15 +52,11 @@ acpc <- function(X, K, r = 2, eps_r = 1e-4, MaxIter_r = 1e+5, gamma = 0.1, tau =
     stop(paste("Parameters gamma and tau should be positive for robust PCA, whereas gamma = ", gamma, " or tau = ", tau, "smaller or equal to 0."))
   } else if (lambda < 0) {
     stop(paste("Parameter lambda should be non-negative for sparse PCA, whereas lambda = ", lambda, "small than 0."))
-  } else if (is.null(featureID)) {
+  } else if (length(featureID) < p) {
     stop("Features should have column name as feature ID, otherwise you cannot interpret loadings.")
   } else if (!(is.numeric(X))) {
     stop("Features should be numeric to process robust sparse PCA and K-means.")
-  } else {
-    n = nrow(X) # Compute rows of X.
-    p = ncol(X) # Compute columns of X.
-  }
-  if (K <= 1 | K > n) {
+  } else if (K <= 1 | K > n) {
     stop(paste("Number of clusters should be integer at least 2, but not exceed number of observations, whereas clusters K = ", K, ", observations n = ", n, " after throwing missing value away."))
   } else if (r < 1 | r > p) {
     stop(paste("Number of principle conponents should integer be at least 1, but not exceed number of features, whereas principle components r = ", r, ", features p = ", p))
