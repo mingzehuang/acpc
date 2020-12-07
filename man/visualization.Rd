@@ -4,7 +4,7 @@
 \alias{visualization}
 \title{Interface for Area classification based on survey data.}
 \usage{
-visualization(censusdata)
+visualization(censusdata = NULL)
 }
 \arguments{
 \item{censusdata}{Input data set for visualization.}

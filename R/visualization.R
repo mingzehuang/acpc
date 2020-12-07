@@ -5,8 +5,11 @@
 #' @return Run shiny app for output.
 #' @export
 visualization <- function(censusdata = NULL) {
-  if (missing(cencusdata) | is.null(censusdata))
-  censusdata = readRDS(url("https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds", "rb"))
+  if (missing(cencusdata) | is.null(censusdata)) {
+    censusdata = readRDS(url("https://shiny.rstudio.com/tutorial/written-tutorial/lesson5/census-app/data/counties.rds", "rb"))
+  } else {
+    censusdata = censusdata
+  }
   appDir <- system.file("shiny-examples", "myapp", package = "acpc")
   if (appDir == "") {
     stop("Could not find example directory. Try re-installing `acpc`.", call. = FALSE)
