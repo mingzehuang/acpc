@@ -2,6 +2,8 @@
 
 export(acpc)
 export(runExample)
+import(shiny)
 importFrom(Rcpp,evalCpp)
+importFrom(graphics,barplot)
 importFrom(stats,na.omit)
 useDynLib(acpc, .registration = TRUE)
