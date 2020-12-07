@@ -20,7 +20,9 @@ A*](https://rss.onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-985X.2007.00466.
 The input data matrix is expected to be n rows, p + 1 columns data
 frame, which is commonly used in census data. The first column contains
 name IDs for all n observations, the rest p columns are features. The
-column names for features are feature IDs.
+column names for features are feature IDs. All features are supposed to
+be numeric so that robust sparse PCA and K-means can be processed
+meaningful.
 
 The package will omit those observations with missing values.
 

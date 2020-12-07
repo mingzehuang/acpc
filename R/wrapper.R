@@ -8,7 +8,7 @@
 #' @param MaxIter_r Scalar, maximum iteration for robust PCA.
 #' @param gamma Scalar, relative weights between nuclear norm and sparsity penalties for robust PCA.
 #' @param tau Scalar, scale parameter for ADMM updates in robust PCA.
-#' @param eps_s Scalar, tolerance for sparSe PCA.
+#' @param eps_s Scalar, tolerance for sparse PCA.
 #' @param MaxIter_s Scalar, maximum iteration for sparse PCA.
 #' @param lambda Scalar, sparsity penalty parameter for sparse PCA.
 #' @param MaxIter_k Scalar, maximum iteration for Kmeans.
