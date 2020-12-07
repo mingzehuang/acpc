@@ -89,7 +89,7 @@ You should run it in your console.
     "rb")) # Load your own dataset
 
     data_for_acpc = your_own_dataset # Rename your own dataset as "data_for_acpc"!
-    visualzation()
+    visualization()
 
 <!-- badges: start -->
 
