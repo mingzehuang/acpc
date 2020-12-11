@@ -12,7 +12,3 @@ Run shiny app for output, two principle components, all parameters are set by de
 \description{
 You're supposed to save your data input as an object call "data_for_acpc" in your global environment, then do visualization() to see the App window.
 }
-\examples{
-visualization() # Generate shiny app for the default data.
-
-}
