@@ -4,7 +4,8 @@
 #' 
 #' @return Run shiny app for output, two principle components, all parameters are set by default value.
 #' @export
-#' @example visualization() # Generate shiny app for the default data.
+#' 
+#' 
 visualization <- function() {
   appDir <- system.file("shiny-examples", "myapp", package = "acpc")
   if (appDir == "") {
