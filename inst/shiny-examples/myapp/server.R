@@ -13,5 +13,7 @@ function(input, output, session) {
     # Render a barplot
     barplot(results()$V[ ,input$pc], main = paste("Principle Component ", input$pc), ylab="Loading coefficients", xlab="Original Features")
   })
-  stopApp()
+  session$onSessionEnded(function() {
+    stopApp()
+  })
 }
